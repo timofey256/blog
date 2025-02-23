@@ -18,13 +18,8 @@ jobs:
         with:
           dotnet-version: '8.0'
 
-      - name: Install F# Dependencies
-        run: dotnet tool install --local FSharp.Formatting
-
       - name: Run F# Script to Generate HTML
-        run: |
-          dotnet tool restore
-          dotnet fsi generate.fsx
+        run: dotnet fsi generate.fsx
 
       - name: Upload Generated Site
         uses: actions/upload-artifact@v4
