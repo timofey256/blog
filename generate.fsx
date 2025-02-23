@@ -5,7 +5,7 @@ open System.IO
 open FSharp.Formatting.Markdown
 
 let contentDir  = "content"
-let outputDir   = "output"
+let outputDir   = "docs"
 let templateDir = "templates"
 
 // Ensure output directory exists
@@ -36,5 +36,5 @@ for file in Directory.GetFiles(contentDir, "*.md") do
     File.WriteAllText(outputFileName, finalHtml)
     printfn "Generated: %s" outputFileName
 
-printfn "Blog generation complete. Files are in 'output/'"
+printfn $"Blog generation complete. Files are in {outputDir}/"
 
