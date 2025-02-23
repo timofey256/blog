@@ -4,12 +4,18 @@ open System
 open System.IO
 open FSharp.Formatting.Markdown
 
-let contentDir = "content"
-let outputDir = "output"
+let contentDir  = "content"
+let outputDir   = "output"
 let templateDir = "templates"
 
 // Ensure output directory exists
 Directory.CreateDirectory(outputDir) |> ignore
+
+// Copy static files
+let staticDir = Path.Combine(outputDir, "static")
+Directory.CreateDirectory(staticDir) |> ignore
+for file in Directory.GetFiles("static") do
+    File.Copy(file, Path.Combine(staticDir, Path.GetFileName(file)), true)
 
 // Load HTML templates
 let layoutTemplate = File.ReadAllText(Path.Combine(templateDir, "layout.html"))
@@ -30,5 +36,5 @@ for file in Directory.GetFiles(contentDir, "*.md") do
     File.WriteAllText(outputFileName, finalHtml)
     printfn "Generated: %s" outputFileName
 
-printfn "Blog generation complete."
+printfn "Blog generation complete. Files are in 'output/'"
 
